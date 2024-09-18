@@ -1,0 +1,37 @@
+Auth:
+{
+    auth/signup-> name, email, password, isGmail:false
+        return->create new user and send sign up successfull
+    auth/login-> email and password
+        return -> accesstoken
+    auth/login/gmail-> 
+        send both email and name for this login
+        if gmail exists send accesstoken and data back
+        if not then create a new user with the information 
+        and send back accesstoken and some data
+}
+
+
+
+User:
+{
+    /user -> get user info, all but password, populate all nested fields
+    /user/update-> only update name and password, nothing else 
+    /user/delete -> performed by the super admin 
+    /user/addTodo -> add todo id to users 'todos' field 
+    /user/removeTodo/:todoId -> 
+        first verify the todo belongs to the user and then remove it 
+        
+    THESE ARE RELATED TO OTHER COLLECTION
+    /user/addpersonalproject/:projectid->
+    /user/addgroupproject/:groupprojectid->
+}
+
+Todo:
+{
+    /todo -> create todo and push the todo id to the users todos array. 
+    /todos/user/userid-> get all todos of a user;
+    /todos/todoid -> get an specific todo 
+    /todos/:todoid -> patch or delete specific todo.
+    in case of delete, remember to pull that id from the users todos collection.  
+}
